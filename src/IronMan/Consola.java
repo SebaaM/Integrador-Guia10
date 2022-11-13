@@ -6,7 +6,9 @@ public class Consola extends Dispositivo {
         super();
     }
 
-    public void escribir() {
+    public void escribir(String msj) {
+        
+        System.out.println(msj);
         
     }
 }

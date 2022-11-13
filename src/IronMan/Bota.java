@@ -12,14 +12,14 @@ public class Bota extends Dispositivo implements AccionesBota, AccionesPropulsor
     public Float caminar(int tiempo) throws danioException {
 
         if ((Bota.botasDaniadas == false)) {
-            System.out.println("Caminando " + tiempo + " tiempo");
+            Armadura.escribirConsola("Caminando " + tiempo + " tiempo");
             this.sufrirDanio();
             if (this.daniado == true) {
                 Bota.botasDaniadas = true;
             }
             return (Dispositivo.consumo * tiempo);
         } else {
-            System.out.println("No se pudo caminar, botas dañado.");
+            Armadura.escribirConsola("No se pudo caminar, botas dañado.");
             //tirar exception
             throw new danioException("Las botas estan dañadas");
         }
@@ -29,14 +29,14 @@ public class Bota extends Dispositivo implements AccionesBota, AccionesPropulsor
     public Float correr(int tiempo) throws danioException {
 
         if (Bota.botasDaniadas == false) {
-            System.out.println("Correr " + tiempo + " tiempo");
+            Armadura.escribirConsola("Correr " + tiempo + " tiempo");
             this.sufrirDanio();
             if (this.daniado == true) {
                 Bota.botasDaniadas = true;
             }
             return ((Dispositivo.consumo * tiempo) * 2);
         } else {
-            System.out.println("No se pudo correr, botas dañadas");
+            Armadura.escribirConsola("No se pudo correr, botas dañadas");
             throw new danioException("Las botas estan dañadas");
         }
     }
@@ -44,14 +44,14 @@ public class Bota extends Dispositivo implements AccionesBota, AccionesPropulsor
     @Override
     public Float propulsar(int tiempo) throws danioException {
         if (Bota.botasDaniadas == false) {
-            System.out.println("Propulsar " + tiempo + " tiempo");
+            Armadura.escribirConsola("Propulsar " + tiempo + " tiempo");
             this.sufrirDanio();
             if (this.daniado == true) {
                 Bota.botasDaniadas = true;
             }
             return ((Dispositivo.consumo * tiempo) * 3);
         } else {
-            System.out.println("No se pudo propulsar, botas dañadas");
+            Armadura.escribirConsola("No se pudo propulsar, botas dañadas");
             throw new danioException("Las botas estan dañadas");
         }
 
@@ -60,14 +60,14 @@ public class Bota extends Dispositivo implements AccionesBota, AccionesPropulsor
     @Override
     public Float volar(int tiempo) throws danioException {
         if (Bota.botasDaniadas == false) {
-            System.out.println("Volar " + tiempo + " tiempo");
+            Armadura.escribirConsola("Volar " + tiempo + " tiempo");
             this.sufrirDanio();
             if (this.daniado == true) {
                 Bota.botasDaniadas = true;
             }
             return ((Dispositivo.consumo * tiempo) * 3);
         } else {
-            System.out.println("No se pudo Volar, botas dañadas");
+            Armadura.escribirConsola("No se pudo Volar, botas dañadas");
             throw new danioException("Las botas estan dañadas");
         }
     }

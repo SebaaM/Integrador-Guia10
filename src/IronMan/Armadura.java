@@ -17,7 +17,7 @@ public class Armadura {
 
     private Bota botaDer;
 
-    private Float energia;
+    private static Float energia;
 
     private Casco casco;
 
@@ -37,7 +37,7 @@ public class Armadura {
         this.casco = new Casco();
 
         //Inicializa Energia en el valor maximo de Float.
-        this.energia = Float.MAX_VALUE;
+        Armadura.energia = Float.MAX_VALUE;
 
     }
 
@@ -46,19 +46,99 @@ public class Armadura {
         float porcentaje = this.energia * (99) / Float.MAX_VALUE;
 
         //Escribir consola?
-        System.out.println(porcentaje + "%");
+        Armadura.escribirConsola(porcentaje + "%");
 
-    }
-
-    public void actualizarPorcentaje(Float consumo) {
-        Float porcentaje = consumo * (99) / Float.MAX_VALUE;
-        //System.out.println(String.valueOf(porcentaje)+ "%");
-        System.out.println(porcentaje.toString() + "%");
     }
 
     public Armadura() {
     }
 
+    private int menuMovimiento() {
+        int op = 0;
+        Scanner leer = new Scanner(System.in);
+
+        do {
+            Armadura.escribirConsola("Seleccione una accion");
+            Armadura.escribirConsola("1- Caminar");
+            Armadura.escribirConsola("2- Correr");
+            Armadura.escribirConsola("3- Propulsar");
+            Armadura.escribirConsola("4- Volar");
+            try {
+                op = leer.nextInt();
+                
+            } catch (InputMismatchException e) {
+                System.out.println("opcion incorrecta.");
+                op = 0;
+            }
+
+        } while (!((op == 1) || (op == 2) || (op == 3) || (op == 4)));
+
+        return op;
+    }
+
+    public void movimiento() {
+        Scanner leer = new Scanner(System.in);
+        int tiempo;
+        int op;
+
+        op = this.menuMovimiento();
+        Armadura.escribirConsola("Ingresa la cantidad de tiempo que desea realizar la accion:");
+        do {
+
+            try {
+                tiempo = leer.nextInt();
+
+            } catch (InputMismatchException e) {
+                System.err.println("No es un numero");
+                tiempo = 0;
+            }
+
+        } while (tiempo <= 0);
+
+        Float consumoTotal = 0f;
+        try {
+        switch (op) {
+            case 1:
+                consumoTotal = this.botaDer.caminar(tiempo);
+                consumoTotal = consumoTotal + this.botaIzq.caminar(tiempo);
+                break;
+            case 2:
+                    consumoTotal = this.botaDer.correr(tiempo);
+                    consumoTotal = consumoTotal + this.botaIzq.correr(tiempo);
+                break;
+            case 3:
+                    consumoTotal = this.botaDer.propulsar(tiempo);
+                    consumoTotal = consumoTotal + this.botaIzq.propulsar(tiempo);
+                break;
+            case 4:
+                    consumoTotal = this.botaDer.volar(tiempo);
+                    consumoTotal = consumoTotal + this.botaIzq.volar(tiempo);
+                    consumoTotal = consumoTotal + this.guanteDer.volar(tiempo);
+                    consumoTotal = consumoTotal + this.guanteIzq.volar(tiempo);
+                break;
+            }
+        // Se puede implementar el catch fuera del Switch. o dentro de cada Case.
+        } catch (danioException e) {
+            System.err.println(e.getMessage());
+            consumoTotal=0f;
+        }
+        
+        if (consumoTotal > this.energia || consumoTotal == 0f) {
+            Armadura.escribirConsola("No se pudo realizar la accion. La energia no disminuyo");
+        } else {
+            this.restarEnergia(consumoTotal);
+        }
+
+    }
+    
+
+    public void restarEnergia (Float consumoTotal){
+        Armadura.energia -= consumoTotal;
+    }
+    
+    
+    
+    /*
     public void caminar() {
         Scanner leer = new Scanner(System.in);
         System.out.println("Ingresa la cantida de tiempo que desea caminar:");
@@ -184,8 +264,9 @@ public class Armadura {
         try {
             consumoTotal = this.botaDer.propulsar(tiempo);
             consumoTotal = consumoTotal + this.botaIzq.propulsar(tiempo);
-            // agregar guantes x2
-            
+            consumoTotal = consumoTotal + this.guanteDer.volar(tiempo);
+            consumoTotal = consumoTotal + this.guanteIzq.volar(tiempo);
+
         } catch (danioException e) {
             // Atrapar exception y consumoTotal = 0;
             System.err.println(e.getMessage());
@@ -200,13 +281,23 @@ public class Armadura {
 
     }
 
+    */
+    
     public void mostrarBateria() {
+
     }
 
     public void reparDanio() {
+
     }
 
+    public static void escribirConsola (String msj){
+        Casco.escribirConsola(msj);
+        Armadura.energia= Armadura.energia - Dispositivo.consumo ;
+    }
+    
     public void revisarDispositivos() {
+        
     }
 
     // GETTERS & SETTERS 

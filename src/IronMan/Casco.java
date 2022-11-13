@@ -12,8 +12,8 @@ public class Casco {
         this.sintetizador= new Sintetizador();
     }
 
-    public void leer() {
-        
+    public static void escribirConsola(String msj) {
+         Casco.consola.escribir(msj);
     }
 
     public Consola getConsola() {

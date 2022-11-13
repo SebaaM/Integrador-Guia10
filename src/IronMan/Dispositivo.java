@@ -63,8 +63,8 @@ public abstract class Dispositivo {
         Long a =  Math.round(Math.random()*100);
         if (a <= 30) {
             this.daniado=true;
-            //Casco.consola.imprimirCosas ("El dispositivo se daño.")
-            System.out.println("El dispositivo se daño.");
+            //Casco.consola.escribir ("El dispositivo se daño.")
+            Armadura.escribirConsola("El dispositivo se daño.");
             this.repararDanio();
             //this.salud -= 25; // resta 25 de salud.
         }
@@ -72,13 +72,13 @@ public abstract class Dispositivo {
     }
     
     public void repararDanio () {
-        System.out.println("Reparando daños..");
+        Armadura.escribirConsola("Reparando daños..");
         Long a =  Math.round(Math.random()*100);
         if (a <= 40) {
             this.daniado=false;
-            System.out.println("El dispositivo se reparó.");
+            Armadura.escribirConsola("El dispositivo se reparó.");
         } else {
-            System.out.println("El dispositivo no se pudo reparar.");
+            Armadura.escribirConsola("El dispositivo no se pudo reparar.");
         }
         
     }
